@@ -1,0 +1,8 @@
+<Alloy>
+	<Window class="container">
+		<RightNavButton id="buttonEdit">
+			<Button title="agregar" id="editar"></Button>
+		</RightNavButton>
+		<TableView id="tableView"></TableView>
+	</Window>
+</Alloy>

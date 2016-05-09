@@ -1,0 +1,13 @@
+
+".container" : {
+	backgroundColor:'#fff',
+	title:'Editar'
+}
+// '#buttonEdit':{
+// 
+// }
+'#tableView':{
+	editable:true,
+	moveable:true,
+	moving:true,
+}
