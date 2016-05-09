@@ -55,7 +55,7 @@ $.winSettings.addEventListener('close', function(e){
 	var arrayNew = [];
 	for(i in data){
 		var newData = {
-			'nombre': JSON.stringify(data[i].description1),
+			'nombre': (data[i].description1).toString(),
 		 	'precio' : data[i].precio,
 		};
 		
@@ -65,9 +65,12 @@ $.winSettings.addEventListener('close', function(e){
 	}
 	
 	Ti.API.info(arrayNew);
-	// Ti.App.Properties.setObject('arrayPrecios', arrayNew);
-	// Ti.App.fireEvent('refresh');
+	Ti.App.Properties.setObject('arrayPrecios', arrayNew);
+	Ti.App.fireEvent('refresh');
 });
+
+
+
 
 
 

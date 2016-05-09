@@ -56,6 +56,12 @@ function winCantidad(numero){
 
 function printPrecios(){
 	
+	// for(i in data){
+		// $.scrollMain.remove(viewContainerPrecio);
+	// }
+	
+	
+	
 	data = [];
 	var arrayPrecios = Ti.App.Properties.getObject('arrayPrecios');
 	
