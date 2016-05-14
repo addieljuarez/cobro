@@ -8,6 +8,134 @@ var arrayPre = Ti.App.Properties.getObject('arrayPrecios');
 var data = [];
 
 
+function addNew(){
+	var viewAdd = Ti.UI.createScrollView({
+		backgroundColor:'#BDBDBD',
+		layout:'vertical',
+	});
+	
+	var labelDesc = Ti.UI.createLabel({
+		textAlign:Ti.UI.TEXT_ALIGNMENT_CENTER,
+		color:'#000',
+		font:{
+			fontSize:18,
+		},
+		text:'Ingresa la descripción',
+		top:20,
+	});
+	
+	var inputDesc = Ti.UI.createTextField({
+		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
+		height:50,
+		left:30,
+		right:30,
+		top:10,
+		color:'#000',
+		font:{
+			fontSize:18,
+		},
+		hintText:'Descripción',
+		returnKeyType:Ti.UI.RETURNKEY_NEXT,
+	});
+	
+	var labelPrecio = Ti.UI.createLabel({
+		textAlign:Ti.UI.TEXT_ALIGNMENT_CENTER,
+		color:'#000',
+		font:{
+			fontSize:18,
+		},
+		text:'Ingresa el precio',
+		top:30,
+	});
+	
+	var buttonAceptarTool = Ti.UI.createButton({
+		systemButton:Titanium.UI.iPhone.SystemButton.DONE,
+	});
+	var space = Ti.UI.createButton({
+		systemButton:Ti.UI.iPhone.SystemButton.FLEXIBLE_SPACE,
+	});
+	
+	var toolBar =Ti.UI.iOS.createToolbar({
+		items:[space,buttonAceptarTool],
+	});
+	var inputPrecio = Ti.UI.createTextField({
+		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
+		height:50,
+		left:30,
+		right:30,
+		top:10,
+		color:'#000',
+		font:{
+			fontSize:18,
+		},
+		hintText:'Precio',
+		keyboardType:Ti.UI.KEYBOARD_TYPE_NUMBER_PAD,
+		keyboardToolbar:toolBar,
+	});
+	
+	
+	var viewButtons = Ti.UI.createView({
+		top:20,
+		height:50,
+	});
+	
+	var buttonCancelar = Ti.UI.createButton({
+		left:10,
+		width:'40%',
+		height:50,
+		title:'Cancelar',
+		backgroundColor:'#FF0040',
+		color:'#fff',
+	});
+	
+	var buttonAceptar = Ti.UI.createButton({
+		right:10,
+		width:'40%',
+		height:50,
+		title:'Agregar',
+		backgroundColor:'#2E2EFE',
+		color:'#fff',
+	});
+
+	viewAdd.add(labelDesc);
+	viewAdd.add(inputDesc);
+	viewAdd.add(labelPrecio);
+	viewAdd.add(inputPrecio);
+	viewAdd.add(viewButtons);
+	viewButtons.add(buttonCancelar);
+	viewButtons.add(buttonAceptar);
+	$.winSettings.add(viewAdd);
+	
+	inputDesc.addEventListener('return', function(e){
+		inputPrecio.focus();
+	});
+	
+	buttonAceptarTool.addEventListener('click', function(e){
+		inputPrecio.blur();
+	});
+	
+	buttonCancelar.addEventListener('click', function(e){
+		$.winSettings.remove(viewAdd);
+	});
+	
+	buttonAceptar.addEventListener('click', function(e){
+		if(inputDesc.value != '' && inputPrecio.value != ''){
+			
+			var newProducto = {
+				'nombre': inputDesc.value,
+		 		'precio' : Number(inputPrecio.value),
+			};
+			
+			data.push(newProducto);
+			
+		}else{
+			alert('Para agregar un nuevo producto, no dejes campos vacios');
+		}
+	});
+	
+};
+
+
 function list(){
 	data = [];
 	
@@ -16,7 +144,6 @@ function list(){
 			editable:true,
 			layout:'horizontal',
 			height:60,
-			moveable:true,
 			description1: arrayPre[i].nombre,
 			precio : arrayPre[i].precio
 		});
@@ -47,7 +174,7 @@ function list(){
 list();
 
 $.editar.addEventListener('click', function(e){
-	
+	addNew();
 });
 
 
@@ -59,8 +186,6 @@ $.winSettings.addEventListener('close', function(e){
 		 	'precio' : data[i].precio,
 		};
 		
-		// Ti.API.info(newData);
-		
 		arrayNew.push(newData);
 	}
 	
@@ -70,6 +195,21 @@ $.winSettings.addEventListener('close', function(e){
 });
 
 
+$.tableView.addEventListener('delete', function(e){
+	Ti.API.info('se borro');
+	Ti.API.info(e.index);
+	
+	delete data[e.index];
+	
+	
+	
+});
+
+
+// $.tableView.addEventListener('move', function(e){
+	// Ti.API.info('se movio');
+	// Ti.API.info(e.index);
+// });
 
 
 

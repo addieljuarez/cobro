@@ -1,7 +1,4 @@
 <Alloy>
-	<!-- <Window class="container">
-		<Label id="label" onClick="doClick">Hello, World</Label>
-	</Window> -->
 	<NavigationWindow id='navigation'>
 		<Window id="winMain">
 			<View id="header">
@@ -10,7 +7,7 @@
 					<ImageView id="imageSettigs"></ImageView>>
 				</View>
 			</View>
-			<ScrollView id='scrollMain'></ScrollView>
+			<TableView id="scrollMain"></TableView>
 			<Button id="buttonReset"></Button>
 			<Button id="buttonTotal"></Button>
 		</Window>

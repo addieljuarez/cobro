@@ -7,6 +7,7 @@ $.navigation.open();
 var data = [];
 
 
+
 function winCantidad(numero){
 	
 	var winCantidad = Ti.UI.createWindow({
@@ -28,15 +29,31 @@ function winCantidad(numero){
 	});
 	
 	var picker = Ti.UI.createPicker({
-		// selectionIndicator:true,
+		selectionIndicator:true,
 	});
 	var datPicker = [];
 	
-	// datPicker[0] = Ti.UI.createPickerRow({title:'tes'});
 	
 	for(var i=0; i<20; i++){
 		var numeroString = (i).toString();
-		datPicker[i] = Ti.UI.createPickerRow({title:numeroString}); 
+		
+		var numeroString1 = Ti.UI.createLabel({
+			text:i,
+			font:{
+				fontSize:20,
+			},
+			textAlign:Ti.UI.TEXT_ALIGNMENT_CENTER,
+			top:2,
+			bottom:2,
+		});
+		
+		var rowPicker = Ti.UI.createPickerRow({
+			 numero:numeroString
+		});
+		rowPicker.add(numeroString1);
+		datPicker.push(rowPicker);
+		
+		// datPicker[i] = Ti.UI.createPickerRow({title:numeroString}); 
 	}
 	
 	picker.add(datPicker);
@@ -45,7 +62,7 @@ function winCantidad(numero){
 	$.navigation.openWindow(winCantidad); 
 	
 	aceptarCantidad.addEventListener('click', function(e){
-		numero.setText(Number(picker.getSelectedRow(0).title));
+		numero.setText(Number(picker.getSelectedRow(0).numero));
 		winCantidad.close();
 	});
 	
@@ -56,17 +73,12 @@ function winCantidad(numero){
 
 function printPrecios(){
 	
-	// for(i in data){
-		// $.scrollMain.remove(viewContainerPrecio);
-	// }
-	
-	
-	
+	$.title.setText('$0.00');
 	data = [];
 	var arrayPrecios = Ti.App.Properties.getObject('arrayPrecios');
 	
 	for(i in arrayPrecios){
-		var viewContainerPrecio = Ti.UI.createView({
+		var viewContainerPrecio = Ti.UI.createTableViewRow({
 			height:60,
 			borderColor:'#D8D8D8',
 			left:0,
@@ -98,22 +110,17 @@ function printPrecios(){
 		
 		
 		
-		$.scrollMain.add(viewContainerPrecio);
+		// $.scrollMain.add(viewContainerPrecio);
+		
 		viewContainerPrecio.add(numeroCantiad);
 		viewContainerPrecio.add(descriptionProducto);
 		
-		viewContainerPrecio.numeroCantiad = numeroCantiad;
 		data.push(viewContainerPrecio);
 		
-		
-		viewContainerPrecio.addEventListener('click', function(e){
-			winCantidad(e.source.numeroCantiad);
-		});
-		
-				
-		
-		
+		viewContainerPrecio.numeroCantiad = numeroCantiad;
 	}
+	
+	$.scrollMain.setData(data);
 }
 
 printPrecios();
@@ -158,3 +165,12 @@ $.viewSettings.addEventListener('click', function(e){
 Ti.App.addEventListener('refresh', function(e){
 	printPrecios();
 });
+
+
+$.scrollMain.addEventListener('click', function(e){
+	var E = e;
+	
+	winCantidad(e.row.numeroCantiad);
+});
+
+

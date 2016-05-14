@@ -8,6 +8,6 @@
 // }
 '#tableView':{
 	editable:true,
-	moveable:true,
-	moving:true,
+	// moveable:true,
+	// moving:true,
 }

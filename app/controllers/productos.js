@@ -1,5 +1,13 @@
 
 if(!Ti.App.Properties.hasProperty('prod')){
+	
+	Ti.App.Properties.setBool('prod',false);
+	
+	
+}
+
+
+if(!Ti.App.Properties.getBool('prod')){
 	 var prod = [
 		 {
 		 	'nombre': 'Productos de $8',
@@ -20,4 +28,6 @@ if(!Ti.App.Properties.hasProperty('prod')){
 	];
 	
 	Ti.App.Properties.setObject('arrayPrecios', prod);
+	
+	Ti.App.Properties.setBool('prod',true);
 }
