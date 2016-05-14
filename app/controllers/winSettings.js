@@ -2,7 +2,7 @@
 var args = $.args;
 
 
-var arrayPre = Ti.App.Properties.getObject('arrayPrecios');
+
 
 
 var data = [];
@@ -123,10 +123,29 @@ function addNew(){
 			
 			var newProducto = {
 				'nombre': inputDesc.value,
-		 		'precio' : Number(inputPrecio.value),
+		 		'precio' : inputPrecio.value,
 			};
 			
-			data.push(newProducto);
+			var arrayNew = [];
+			for(i in data){
+				var newData = {
+					'nombre': (data[i].description1).toString(),
+				 	'precio' : data[i].precio,
+				};
+				
+				arrayNew.push(newData);
+			}
+			arrayNew.push(newProducto);
+			
+	
+			Ti.API.info(arrayNew);
+			Ti.App.Properties.setObject('arrayPrecios', arrayNew);
+			
+			$.winSettings.remove(viewAdd);
+			
+			
+			alert('Agregado');
+			list();
 			
 		}else{
 			alert('Para agregar un nuevo producto, no dejes campos vacios');
@@ -137,6 +156,7 @@ function addNew(){
 
 
 function list(){
+	var arrayPre = Ti.App.Properties.getObject('arrayPrecios');
 	data = [];
 	
 	for(i in arrayPre){
