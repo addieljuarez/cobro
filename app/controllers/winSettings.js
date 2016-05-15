@@ -138,7 +138,6 @@ function addNew(){
 			arrayNew.push(newProducto);
 			
 	
-			Ti.API.info(arrayNew);
 			Ti.App.Properties.setObject('arrayPrecios', arrayNew);
 			
 			$.winSettings.remove(viewAdd);
@@ -209,28 +208,14 @@ $.winSettings.addEventListener('close', function(e){
 		arrayNew.push(newData);
 	}
 	
-	Ti.API.info(arrayNew);
 	Ti.App.Properties.setObject('arrayPrecios', arrayNew);
 	Ti.App.fireEvent('refresh');
 });
 
 
 $.tableView.addEventListener('delete', function(e){
-	Ti.API.info('se borro');
-	Ti.API.info(e.index);
-	
 	delete data[e.index];
-	
-	
-	
 });
-
-
-// $.tableView.addEventListener('move', function(e){
-	// Ti.API.info('se movio');
-	// Ti.API.info(e.index);
-// });
-
 
 
 

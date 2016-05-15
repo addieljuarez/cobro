@@ -140,7 +140,6 @@ $.buttonTotal.addEventListener('click', function(e){
 	var conteo = 0;
 	for(i in data){
 		var totalIndividual = Number(data[i].precio) * Number(data[i].numeroCantiad.getText());
-		Ti.API.info(totalIndividual);
 		arraySuma.push(totalIndividual);
 	}
 	
